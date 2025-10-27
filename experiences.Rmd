@@ -1,0 +1,61 @@
+---
+title: "Academic and Professional Experience"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: readable
+---
+
+## Education
+
+**Columbia University, [Mailman School of Public Health](https://www.publichealth.columbia.edu/), New York, USA**
+
+*M.S., Biostatistics*
+
+Status: In progress · Expected May 2027 · **Sep 2025 - Present**
+<br><br>
+
+**University of Toronto Scarborough ([UTSC](https://www.utsc.utoronto.ca/home/)), Toronto, Canada**
+
+*Honours BSc, Neuroscience & Statistics (High Distinction)*
+
+GPA: 3.85/4.0 · Dean's Honor List: 2021-2024 · **Sep 2021 - Sep 2025**
+
+## Publication
+
+Ding, C. (2023). Aducanumab - a potential pharmacological therapeutic treatments for Alzheimer’s disease. *Highlights in Science Engineering and Technology*, *36*, 1040–1045. <https://doi.org/10.54097/hset.v36i.6170>
+
+## Research Experiences
+
+**Visual Perception Cognitive Neuroscience Lab (UTSC)** 
+
+*Research Assistant* (PI: Prof. Jonathan S. Cant) Toronto, Canada · Sep 2022–Aug 2024
+
+- Designed experiments on global perception and multisensory integration; led data collection & troubleshooting.
+
+- Built MATLAB programs to test color effects (noise/warmth/rotation sensitivity).
+
+- Presented at lab meetings; refined methods; showed population averaging of noise & warmth with spatial frequency effects.
+<br><br>
+
+**Experimental Cell Biology Online Research** (Brown University) 
+
+*Research Assistant* (Advisor: Prof. Shibin Cheng) Providence, USA · Jul 2022–Dec 2022
+
+- Studied AD mechanisms (Tau–Aβ, ER stress/UPR; COVID-19 context); synthesized competing pathogenesis theories.
+
+- Reviewed evidence and controversy around aducanumab efficacy; presented on histidine catabolism & methotrexate sensitivity.
+
+## Internship
+
+**To St. Health Technology (Guangdong) Co., Ltd.**
+
+*Intern Researcher* Foshan, China · Jul 2023–Aug 2023
+
+- Designed DNA/RNA primers for Candida albicans; validated with microscopy.
+
+- Ran PCR with fluorescence detection; used UV decontamination; confirmed strains via instrument current response; gel electrophoresis QC.
+<br><br>
+
+Go back to the [homepage](index.html).
