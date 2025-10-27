@@ -1,0 +1,118 @@
+---
+title: "Instacart Flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+```{r, message=FALSE}
+library(tidyverse)
+library(plotly)
+library(scales)
+library(p8105.datasets)
+```
+
+```{r}
+# import and tidy dataset
+data("instacart")
+
+instacart_data <- instacart %>%
+  mutate(dow = factor(order_dow, levels = 0:6,
+                      labels = c("Sun","Mon","Tue","Wed","Thu","Fri","Sat"),
+                      ordered = TRUE))
+
+# bar chart dataset
+aisle_top <- instacart_data %>%
+  count(aisle, sort = TRUE) %>%
+  slice_head(n = 15) %>%
+  mutate(aisle = fct_reorder(aisle, n))
+
+# lines plot dataset
+by_hour <- instacart_data %>%
+  count(dow, order_hour_of_day, name = "orders") %>%
+  arrange(dow, order_hour_of_day)
+
+# scatterplot dataset
+prod_stats <- instacart_data %>%
+  group_by(aisle) %>%
+  summarise(
+    times_ordered = n(),                        
+    avg_add_pos   = mean(add_to_cart_order, na.rm = TRUE),  
+    .groups = "drop"
+  ) %>%
+  slice_max(times_ordered, n = 25)   
+```   
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+                   
+### Chart A
+
+```{r}
+# scatterplot: easy to get into cart
+plot_ly(
+  data = prod_stats,
+  x = ~avg_add_pos, y = ~times_ordered,
+  type = "scatter", mode = "markers",
+  text = ~paste0(
+    "<b>", aisle, "</b>",
+    "<br>Items ordered: ", format(times_ordered, big.mark = ","),
+    "<br>Avg add position: ", round(avg_add_pos, 1)
+  ),
+  hoverinfo = "text",
+  marker = list(
+    size = 14, color = "#3b82f6", opacity = 0.65,
+    line = list(width = 1, color = "white")
+  )
+) %>%                               
+  plotly::layout(                   
+    title  = "Aisles: avg add-to-cart position vs total items ordered",
+    xaxis  = list(title = "Avg add-to-cart position (smaller = earlier)"),
+    yaxis  = list(title = "Total items ordered"),
+    margin = list(l = 80, r = 20, t = 50, b = 50),
+    showlegend = FALSE,
+    hoverlabel = list(bgcolor = "white", bordercolor = "#d1d5db")
+  )
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+# lines plot: orders by hour for each weekday
+plot_ly(
+  data = by_hour,
+  x = ~order_hour_of_day, y = ~orders, color = ~dow,
+  type = "scatter", mode = "lines",
+  hovertemplate = "Weekday: %{fullData.name}<br>Hour: %{x}<br>Orders: %{y}"
+  ) %>%
+  layout(
+    title = "Order volume by hour and weekday",
+    xaxis = list(title = "Hour of day", dtick = 6),
+    yaxis = list(title = "Orders"),
+    legend = list(orientation = "h", x = 0, y = 1.1)
+    )
+```
+
+### Chart C
+
+```{r}
+# bar chart: top 15 aisles (aisle popularity)
+plot_ly(data = aisle_top,
+        x = ~n, y = ~aisle, type = "bar", orientation = "h",
+        hovertemplate = "%{y}Items ordered: %{x}<extra></extra>"
+        ) %>%
+  layout(
+    title = "Top 15 aisles by items ordered",
+    xaxis = list(title = "Number of items ordered"),
+    yaxis = list(title = ""),
+    margin = list(l = 140)
+    )
+```
